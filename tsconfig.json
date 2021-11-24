@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es6",
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "sourceMap": false,
+    "outDir": "dist",
+    "baseUrl": ".",
+    "strict": false,
+    "paths": {
+      "*": [
+        "node_modules/*",
+        "app/types/*"
+      ]
+    },
+    "typeRoots": [ "./types", "./node_modules/@types"]
+  },
+  "include": [
+    "app/**/*"
+  ],
+  "exclude": ["node_modules", "types", "dist", "**/*.test.ts"],
+}
