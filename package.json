@@ -27,5 +27,9 @@
   "bin": {
     "weather": "./dist/weather.js"
   },
-  "keywords": []
+  "keywords": [],
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "dedent-js": "^1.0.1"
+  }
 }
