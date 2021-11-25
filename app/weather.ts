@@ -1,9 +1,15 @@
 #!/usr/bin/env node
 import { parseArgs } from './helpers/parseArgs'
-import { printHelp } from './services/log.service'
+import { printError, printHelp, printSuccess } from './services/log.service'
 import { setKeyValue } from './services/storage.service'
 
-const init = () => {
+// TODO clean, delete json
+
+const validateToken = (token: string | boolean) => {
+  return !(typeof token !== 'string' || token.length < 1)
+}
+
+const init = async () => {
   const args = parseArgs(process.argv)
 
   if (args.has('h')) {
@@ -15,8 +21,19 @@ const init = () => {
   }
 
   if (args.has('t')) {
-    setKeyValue()
-    console.log(`t: ${args.get('t')}`)
+    const token = args.get('t')
+
+    if (!validateToken(token)) {
+      printError('Invalid token')
+      return
+    }
+
+    try {
+      await setKeyValue('t', args.get('t'))
+      printSuccess('Token saved')
+    } catch (e) {
+      printError(e.message)
+    }
   }
 }
 
