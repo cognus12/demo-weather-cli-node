@@ -1,5 +1,5 @@
 import dedent from 'dedent-js'
-import { bgCyan } from 'chalk'
+import { bgCyan, bgRed } from 'chalk'
 
 export const printHelp = (): void => {
   const output = dedent(`
@@ -11,4 +11,8 @@ export const printHelp = (): void => {
     `)
 
   console.log(output)
+}
+
+export const printError = (msg: string): void => {
+  console.log(`${bgRed('ERROR')}: ${msg}`)
 }
