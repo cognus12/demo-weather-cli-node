@@ -3,7 +3,7 @@ import { parseArgs } from './helpers/parseArgs'
 import { printError, printHelp, printSuccess } from './services/log.service'
 import { setKeyValue } from './services/storage.service'
 import { getWeather } from './services/api.service'
-import { validateToken } from './helpers/validateToken'
+import { validateStringValue } from './helpers/validateToken'
 
 // TODO clean, delete json
 
@@ -16,18 +16,31 @@ const init = async () => {
 
   if (args.has('c')) {
     console.log(`c: ${args.get('c')}`)
+    const city = args.get('c')
+
+    if (!validateStringValue(city)) {
+      printError('Invalid city name')
+      return
+    }
+
+    try {
+      await setKeyValue('c', city)
+      printSuccess('City saved')
+    } catch (e) {
+      printError(e.message)
+    }
   }
 
   if (args.has('t')) {
     const token = args.get('t')
 
-    if (!validateToken(token)) {
+    if (!validateStringValue(token)) {
       printError('Invalid token')
       return
     }
 
     try {
-      await setKeyValue('t', args.get('t'))
+      await setKeyValue('t', token)
       printSuccess('Token saved')
     } catch (e) {
       printError(e.message)

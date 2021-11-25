@@ -1,11 +1,11 @@
 import https from 'https'
 import { getKeyValue } from './storage.service'
-import { validateToken } from '../helpers/validateToken'
+import { validateStringValue } from '../helpers/validateToken'
 
 export const getWeather = (city: string) => {
   return new Promise((resolve, reject) => {
     getKeyValue('t').then((token) => {
-      if (!validateToken(token)) {
+      if (!validateStringValue(token)) {
         throw new Error('API key is not provided or is invalid. Use -t [API_KEY]')
       }
 
