@@ -13,7 +13,7 @@ export const getWeather = (city: string) => {
 
       url.searchParams.append('q', city)
       url.searchParams.append('appid', token as string)
-      url.searchParams.append('lang', 'en')
+      url.searchParams.append('lang', 'ru')
       url.searchParams.append('units', 'metric')
 
       https.get(url, (response) => {
