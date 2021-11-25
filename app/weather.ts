@@ -2,12 +2,10 @@
 import { parseArgs } from './helpers/parseArgs'
 import { printError, printHelp, printSuccess } from './services/log.service'
 import { setKeyValue } from './services/storage.service'
+import { getWeather } from './services/api.service'
+import { validateToken } from './helpers/validateToken'
 
 // TODO clean, delete json
-
-const validateToken = (token: string | boolean) => {
-  return !(typeof token !== 'string' || token.length < 1)
-}
 
 const init = async () => {
   const args = parseArgs(process.argv)
@@ -35,6 +33,9 @@ const init = async () => {
       printError(e.message)
     }
   }
+
+  const w = await getWeather('Vladimir')
+  console.log(w)
 }
 
 init()
