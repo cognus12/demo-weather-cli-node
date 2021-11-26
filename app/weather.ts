@@ -7,7 +7,7 @@ import { validateStringValue } from './helpers/validateToken'
 
 // TODO clean, delete json
 
-const init = async () => {
+const run = async () => {
   const args = parseArgs(process.argv)
 
   if (args.has('h')) {
@@ -49,12 +49,17 @@ const init = async () => {
 
   const city = await getKeyValue('c')
 
+  if (!city) {
+    printError('City is not specified - use -c [CITY]')
+    return
+  }
+
   try {
-    const w = await getWeather(city as string)
-    printWeather(w)
+    const weather = await getWeather(city as string)
+    printWeather(weather)
   } catch (e) {
     printError(e.message)
   }
 }
 
-init()
+run()

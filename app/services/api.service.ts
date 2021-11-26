@@ -1,12 +1,14 @@
 import https from 'https'
 import { getKeyValue } from './storage.service'
 import { validateStringValue } from '../helpers/validateToken'
+import { printError } from './log.service'
 
 export const getWeather = (city: string) => {
   return new Promise((resolve, reject) => {
     getKeyValue('t').then((token) => {
       if (!validateStringValue(token)) {
-        throw new Error('API key is not provided or is invalid. Use -t [API_KEY]')
+        printError('API key is not provided or is invalid. Use -t [API_KEY]')
+        return
       }
 
       const url = new URL('https://api.openweathermap.org/data/2.5/weather')
