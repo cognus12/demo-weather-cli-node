@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { parseArgs } from './helpers/parseArgs'
-import { printError, printHelp, printSuccess } from './services/log.service'
+import { printError, printHelp, printSuccess, printWeather } from './services/log.service'
 import { getKeyValue, setKeyValue } from './services/storage.service'
 import { getWeather } from './services/api.service'
 import { validateStringValue } from './helpers/validateToken'
@@ -49,8 +49,12 @@ const init = async () => {
 
   const city = await getKeyValue('c')
 
-  const w = await getWeather(city as string)
-  console.log(w)
+  try {
+    const w = await getWeather(city as string)
+    printWeather(w)
+  } catch (e) {
+    printError(e.message)
+  }
 }
 
 init()
